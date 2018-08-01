@@ -1,7 +1,6 @@
 function [solved_2,E_sol,V_sol,rho_sol,gamma_sol,u_s] = solve_Plane8D_2(dynamics,r,rt,up,gp,gs,g,u,Ly,Lg,Ls,L_E,E_prev,alpha,E_w,toler)
 
 delta_E = toler.delta_E;
-delta_rho = toler.delta_rho;
 lambda = toler.lambda;
 alpha_l = toler.alpha_l;
 
@@ -13,7 +12,7 @@ n_c = length(dynamics.c);
 V_order = toler.all_deg.V_order; 
 lp_order = toler.all_deg.lp_order;
 
-[prog, gamma, u_eps, E, V, rho, free_vars] = define_L_Plane(dynamics,r,rt,up,gp,gs,u,Ly,Ls,L_E,V_order,lp_order,n_r,n_c,delta_E,delta_rho);
+[prog, gamma, u_eps, E, V, rho, free_vars] = define_V_Plane(dynamics,r,rt,up,gp,gs,u,Ly,Ls,L_E,V_order,lp_order,n_r,n_c,delta_E);
 % free_vars = [prog.coneVar; prog.freeVar];
 len = length(free_vars);
 [prog, reg] = prog.newPos(len);
@@ -36,7 +35,7 @@ prog = prog.withPSD((1+alpha)*E_prev - E);
 options = spot_sdp_default_options();
 options.verbose = 0;
 
-fprintf('Solving Lyapunov...');
+fprintf('Solving V...');
 try
     SOS_soln = prog.minimize(3*(-obj+lambda*(gamma+sum(u_eps))) + (1e-2)*sum(reg), @spot_mosek, options);
 catch

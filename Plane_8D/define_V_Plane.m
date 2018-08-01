@@ -1,6 +1,6 @@
-function [prog, gamma, u_eps, E, V, rho, coeffs] = define_L_Plane(dynamics,r,rt,up,gp,gs,u,Ly,Ls,L_E,V_order,lp_order,n_r,n_c,delta_E,delta_rho)
+function [prog, gamma, u_eps, E, V, rho, coeffs] = define_V_Plane(dynamics,r,rt,up,gp,gs,u,Ly,Ls,L_E,V_order,lp_order,n_r,n_c,delta_E)
 
-global grav air_den area mass cd_0 Kd;
+global air_den area mass cd_0 Kd;
 
 h = dynamics.h;
 B = dynamics.B;
@@ -39,8 +39,7 @@ prog = prog.withSOS(-dV_dr*h - dV_dr*B*u + gamma + Ly*(Vr-rho) + Lp'*gp);
 %Control constraints
 %add in drag term for acceleration
 F_drag = (air_den*area)*(r(5)^2)*(cd_0+4*(pi^2)*Kd*(r(8)^2));
-% sin_g = 0.50586*(r(6)/(pi/6));
-u_a = u(1) + (F_drag/mass);% + grav*sin_g;
+u_a = u(1) + (F_drag/mass);
 
 for i = 1:gs.N_s
     prog = prog.withSOS(-(gs.A(i,:)*[u_a;u(2:3)] - gs.b(i) - u_eps(i)) + Ls(i)*(Vr-rho));

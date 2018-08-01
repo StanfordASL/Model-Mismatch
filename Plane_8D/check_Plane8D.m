@@ -11,7 +11,7 @@ E_sol = zeros(n_c);
 le_order = toler.all_deg.le_order; 
 lg_order = toler.all_deg.lg_order;
 
-[prog, obj, E, ~] = define_C_3(r,rt,V,rho,dynamics.c,n_c,le_order,delta_E);
+[prog, obj, E, ~] = define_K_2(r,rt,V,rho,dynamics.c,n_c,le_order,delta_E);
  
 %State constraints
 [prog, Lg] = prog.newSOSPoly(monomials(rt,0:lg_order),length(g));
@@ -118,8 +118,7 @@ ls_order = toler.all_deg.ls_order;
 %Control constraints
 Vr = subs(V,rt,dynamics.c);
 F_drag = (air_den*area)*(r(5)^2)*(cd_0+4*(pi^2)*Kd*(r(8)^2));
-% sin_g = 0.50586*(r(6)/(pi/6));
-u_a = u(1) + (F_drag/mass);%
+u_a = u(1) + (F_drag/mass);
 
 for i = 1:gs.N_s
     prog = prog.withSOS(-(gs.A(i,:)*[u_a;u(2:3)] - gs.b(i) - u_eps(i)) + Ls(i)*(Vr-rho));

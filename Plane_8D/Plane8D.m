@@ -75,7 +75,7 @@ v_inv = 0.182574 -0.1067*(r(5)-bpa_v)/bma_v + ...
        -0.00911*(4*((r(5)-bpa_v)/bma_v)^3 - 3*((r(5)-bpa_v)/bma_v));
 
 % Dynamics
-%NOTE: NO MORE DRAG or GRAVITY AS IT IS CANCELLED BY THRUST
+%NOTE: NO MORE DRAG AS IT IS CANCELLED BY THRUST
 
 dynamics.h = [r(5)*cos_g*cos_ps-v_hat+up(1)*r(2); %5
     r(5)*cos_g*sin_ps-up(1)*r(1); %4
@@ -124,7 +124,7 @@ all_deg = struct('ly_order',4,'ls_order',2,'lp_order',4,...
                  'lg_order',2,'le_order',2,...
                  'u_order',2,'V_order',2);
 
-toler = struct('delta_E',0.01,'delta_rho',0.01,...
+toler = struct('delta_E',0.01,...
                'slack_tol',0.08,'lambda',1.0,...
                'th_1',0.01,'th_2',0.05,...
                'alpha_u',0.1,'alpha_l',0.5,...
@@ -240,7 +240,7 @@ c_sol = @(r) [r(1:4);
               r(6:7);
               r(8)-alpha_0];
          
-save('Plane8D_soln_2.mat','V_sol','dVsol_dr','rho_sol','E_sol','u_sol','c_sol');
+save('Plane8D_soln_3.mat','V_sol','dVsol_dr','rho_sol','E_sol','u_sol','c_sol');
 
 %% Plot ellipsoids
 

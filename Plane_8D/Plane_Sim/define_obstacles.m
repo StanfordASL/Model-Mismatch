@@ -1,5 +1,5 @@
 
-%% Create Tree obstacles
+%% Create Tree obstacles (ll/ur format)
 
 %location of the trees
 numTrees = 30;
@@ -32,11 +32,11 @@ for i = 1:numTrees
     end
 end
 
-%% Create towers
+%% Create towers (ll/ur format)
 
 numTowers = 10;
 tower_pos_xy = rand(numTowers,2);
-tower_width = 10; tower_height = 15;
+tower_width = 9; tower_height = 15;
 tower_pos_xy = tower_pos_xy.*repmat(World_dim(1:2)-tower_width,numTowers,1);
 
 %let's add a few more in the path of the goal
@@ -61,9 +61,11 @@ n_obstacles = size(obstacles,1)/2;
 %add plane box inflation                        
 obstacles_infl = obstacles     - kron(repmat([vol_infl_xy,0],n_obstacles,1),[1;0]) +...
                                  kron(repmat([vol_infl_xy,vol_infl_z(1)],n_obstacles,1),[0;1]);                       
-
-%get collision obstacles
-obstacles_coll = get_coll_obstacles(obstacles,n_obstacles);
+                             
+%get collision obstacles (convex hull format)
+obstacles_coll = get_coll_obstacles([obstacles_infl;
+                                     0,0,-0.01;
+                                     World_dim(1:2),0],n_obstacles+1);
 
 %% Plot 
 

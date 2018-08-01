@@ -1,5 +1,7 @@
 function P_nn = get_steer_paths(nodes,N_nn)
 
+%find steering paths for all nearest neighbors
+
 N = size(nodes,1);
 
 P_nn = cell(N,N);

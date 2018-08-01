@@ -1,7 +1,7 @@
 close all; 
 
 fig = figure();
-plot3(X_ref(:,1),X_ref(:,2),X_ref(:,3),'b-','linewidth',2); hold on
+plot3(X_ref(:,1),X_ref(:,2),X_ref(:,3),'r-','linewidth',2); hold on
 plot3(X(:,1),X(:,2),X(:,3),'k-','linewidth',2.0);
 goal.plot('color','blue','alpha',0.3); 
 
@@ -20,6 +20,8 @@ n_b = 1+(T_b/0.5);
 i = 1;
 pos = X(i,1:3)';
 att = X(i,[4;6;7]);
+%get pitch
+att(2) = att(2)+X(i,8)-alpha_0;
 
 %% create objects
 
@@ -34,8 +36,8 @@ end
 [h_p,rot] = plot_plane(plane,pos,att,0,fig);
 
 plot3dObstacles(tree_obstacles,'g',0.6); hold on
-plot3dObstacles(tower_obstacles,[0.5,0.5,0.5],0.8);
-plot3dObstacles(obstacles_infl,'r',0.05,1);
+plot3dObstacles(tower_obstacles,[0.5,0.5,0.5],1.0);
+plot3dObstacles(obstacles_infl,'r',0.01,1);
 plot3dObstacles([0 0 0; World_dim],'k',0);
 patch([0,World_dim(1),World_dim(1),0],...
       [0, 0, World_dim(2), World_dim(2)],...
@@ -52,6 +54,7 @@ if (fpv_view)
     campos(pos'+(rot*pos_tail)')
     camtarget(pos'+(rot*(pos_tail+pos_view))')
 else
+    %iso-view
     campos(pos'+[-7.5,-9.9,7.18]);
     camtarget(pos');
 end
@@ -59,9 +62,9 @@ drawnow;
 
 %% record movie
 
-record_vid = 1;
+record_vid = 0;
 if (record_vid)
-    writerObj = VideoWriter('Plane_sim_2.mp4');
+    writerObj = VideoWriter('Plane_sim.mp4');
     writerObj.FrameRate = 1/(t_step*dT);
     writerObj.Quality = 100;
     open(writerObj);
@@ -73,6 +76,8 @@ for i = 1:t_step:length(t_ref)
 % for i = (20/dT)+1:10*t_step:length(t_ref)
     pos = X(i,1:3)';
     att = X(i,[4;6;7]);
+    %get pitch
+    att(2) = att(2)+X(i,8)-alpha_0;
     
     delete(h_p); 
     hold on

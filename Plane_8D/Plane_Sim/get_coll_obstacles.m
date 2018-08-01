@@ -1,4 +1,6 @@
 function obs_coll = get_coll_obstacles(obs,n_obs)
+%input: ll/ur format
+%output: convex hull
 
 obs_coll = zeros(8,3,n_obs);
 

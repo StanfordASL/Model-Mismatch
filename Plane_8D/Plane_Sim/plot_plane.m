@@ -1,22 +1,22 @@
 function [h_p,R] = plot_plane(plane,r,rot,show_box,varargin)
 
-psi = rot(1);
-gamma = rot(2);
-phi = rot(3);
+yaw = rot(1);
+pitch = rot(2);
+roll = rot(3);
 
-R_z = [cos(psi), -sin(psi), 0;
-       sin(psi), cos(psi), 0;
+R_z = [cos(yaw), -sin(yaw), 0;
+       sin(yaw), cos(yaw), 0;
        0,0,1];
    
-gamma = -gamma;
+pitch = -pitch; %since not using NED
 
-R_y = [cos(gamma), 0, sin(gamma);
+R_y = [cos(pitch), 0, sin(pitch);
        0, 1, 0;
-      -sin(gamma), 0, cos(gamma)];
+      -sin(pitch), 0, cos(pitch)];
   
 R_x = [1,0,0;
-       0, cos(phi), -sin(phi);
-       0, sin(phi), cos(phi)];
+       0, cos(roll), -sin(roll);
+       0, sin(roll), cos(roll)];
   
 R = R_z*R_y*R_x;
 

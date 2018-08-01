@@ -1,22 +1,11 @@
 %% Check Plot
 
-%Dubins4D check
-% figure(1)
-% plot3(Xp(:,1),Xp(:,2),Xp(:,3),'b-','linewidth',2.0);
-% grid on
-
-% figure()
-% plot(t_ref(1:end-1),Rp(1:end-1,:)-R,'linewidth',2);
-% grid on
-% xlabel('Time [s]')
-% title('r_p vs r')
-
 figure()
 plot(t_ref(1:T_steps-1),dVdt(:,1),'r-','linewidth',2); hold on
 plot(t_ref(1:T_steps-1),dVdt(:,2),'b-','linewidth',2);
 grid on
 xlabel('Time [s]')
-title('dV/dt: true vs approx');
+title('dV/dt: true (red) vs approx (blue)');
 
 %% Trajectory plot
 
@@ -34,12 +23,11 @@ end
 
 %States
 figure()
-title('Relative states');
-
 subplot(2,2,1)
 plot(t_ref(1:end-1),R(:,1:3),'r-','linewidth',2);
 xlabel('time [s]');
 ylabel('pos');
+title('Relative states');
 
 subplot(2,2,2)
 plot(t_ref(1:end-1),R(:,5),'r-','linewidth',2);

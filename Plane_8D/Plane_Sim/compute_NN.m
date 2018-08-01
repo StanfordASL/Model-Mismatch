@@ -1,5 +1,6 @@
 function [N_nn,T_nn,C_nn] = compute_NN(nodes,r)
 
+%comput cost-threshold nearest neighbors
 %ds: step-size
 %r: connection radius
 %nodes: N x 4

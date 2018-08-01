@@ -1,19 +1,35 @@
 function [FMT_time, path_final] = FMTStar_Dubins_Plane(N,V,N_nn,C_nn,T_nn,P_nn,EPS,teb,obs,x0,goal)
 
-% EPS = 0.5;
-% n: number of total samples
-% V: N x 4 matrix of (x,y,z,theta) tuples
-% N_mm: N x N sparse matrix; N_idx(i,:) set of nearest neighbors for node i
-% C_nn: N x N sparse matrix; Cost(i,:) connection costs to neighbors for node i
-% x0: start node (x,y,z,theta) tuple
+%N: num of nodes
+%V: N x 4 node list
+%N_nn: nearest neighbor index graph
+%C_nn: nearest neighbor cost graph
+%T_nn: nearest neighbor time graph
+%P_nn: nearest neighbor steering paths
+%EPS: connection radius
+%teb: tracking bound projection onto position space (convex hull)
+%obs: collision obstacles
+%x0: initial start location
+%goal: goal polyhedron
 
 %% Augment Nodes
+
+%add start node to list
 V = [x0;V];
 N = N+1;
 
+%augment graph matrices
 N_nn = blkdiag(0,N_nn);
 C_nn = blkdiag(0,C_nn);
 T_nn = blkdiag(0,T_nn);
+
+%get connections from start node
+[N_nn(1,:),C_nn(1,:),T_nn(1,:),P_init] = get_NN(1,V,N,EPS);
+P_pad = cell(N-1,1); %don't care about connections to start node
+
+%augment path graph
+P_nn = [P_init;
+        P_pad,P_nn];
 
 %% Initialize
 
@@ -30,12 +46,6 @@ V_graph = zeros(N,1);
 
 %expand node (idx)
 z = 1;
-%get N_nn just for start node
-[N_nn(1,:),C_nn(1,:),T_nn(1,:),P_init] = get_NN(1,V,N,EPS);
-P_pad = cell(N-1,1);
-P_nn = [P_init;
-        P_pad,P_nn];
-
 z_in_goal = 0;
 
 %% Search
@@ -98,16 +108,7 @@ if (~z_in_goal)
     path_final = 0;
     return;
 end
-%% Plot tree
-% fig_fmt = figure();
-% hold on
-% for i = 2:N
-%     p = V_graph(i);
-%     if (p~=0)
-%         path_loc = P_nn{p,i};
-%         plot3(path_loc(:,1),path_loc(:,2),path_loc(:,3),'k-');
-%     end
-% end
+
 %% Recover optimal path
 
 % Search backwards from goal to start to find the optimal least cost path
@@ -121,6 +122,8 @@ while (V_graph(q)~=0)
 end
 %flip
 path_idx = flipud(path_idx);
+
+%get actual (x,y,z,th) path
 path_final = P_nn{path_idx(1),path_idx(2)};
 for i = 2:length(path_idx)-1
     path_final = [path_final;

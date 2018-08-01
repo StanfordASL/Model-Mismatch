@@ -7,10 +7,11 @@ function coll = InCollision(path,teb,obs)
 % skip = round(dS/ds);
 
 n_obs = size(obs,3);
+
 obs_cen = reshape(mean(obs),3,n_obs);
 N = size(path,1);
 
-%% dumb check to get this done with
+%% simple check
 
 %for each obstacle, find closest point along path
 dists_obs = zeros(n_obs,2);
@@ -23,14 +24,17 @@ ignore = dists_obs(:,1) >= 15; %could be more precise but it'll do
 
 coll = 0;
 %check non-ignore
-if (sum(ignore)~=0)
+if (sum(ignore)~=n_obs)
     obs_check = find(~ignore);
     found_coll = 0; j=1;
     while(~found_coll && j<= length(obs_check))
+        %get obstacle index 
         o_idx = obs_check(j);
+        %get path index of closest approach
         p_idx = dists_obs(o_idx,2);
+        %get position at closest approach
         pos = path(p_idx,1:3)';
-        %now rotate & translate teb
+        %now rotate & translate teb to this position
         teb_V = update_teb(teb,pos,path(p_idx,4),0);
         
         %check

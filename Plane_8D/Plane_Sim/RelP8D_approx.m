@@ -1,5 +1,5 @@
 function dr_dt = RelP8D_approx(t,r,u,up)
-global grav air_den area mass cd_0 Kd v_hat;
+global grav air_den area mass v_hat;
 
 C_con = pi*air_den*area/mass;
 
@@ -24,8 +24,6 @@ v_inv = 0.182574 -0.1067*(r(5)-bpa_v)/bma_v + ...
        -0.00911*(4*((r(5)-bpa_v)/bma_v)^3 - 3*((r(5)-bpa_v)/bma_v));
 
 % Dynamics
-
-F_drag = (air_den*area)*(r(5)^2)*(cd_0+4*(pi^2)*Kd*(r(8)^2));
 
 h = [r(5)*cos_g*cos_ps-v_hat+up(1)*r(2); %5
               r(5)*cos_g*sin_ps-up(1)*r(1); %4
