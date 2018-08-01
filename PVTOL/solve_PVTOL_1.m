@@ -19,7 +19,7 @@ ls_order = toler.all_deg.ls_order;
 ly_order = toler.all_deg.ly_order; 
 lp_order = toler.all_deg.lp_order;
 
-[prog,gamma,Ly,Ls,u] = define_C_12(dynamics,r,rt,up,gp,gs,V,rho,u_order,ls_order,ly_order,lp_order);
+[prog,gamma,Ly,Ls,u] = define_K_1(dynamics,r,rt,up,gp,gs,V,rho,u_order,ls_order,ly_order,lp_order);
 
 %Strict feasibility
 prog = prog.withPos(-gamma);
@@ -29,7 +29,7 @@ options = spot_sdp_default_options();
 options.verbose = 0;
 
 %Solve
-fprintf('Solving Controller (1+2)...');
+fprintf('Solving Controller (1)...');
 try
     SOS_soln = prog.minimize(gamma, @spot_mosek, options);
 catch
@@ -61,7 +61,7 @@ end
 le_order = toler.all_deg.le_order; 
 lg_order = toler.all_deg.lg_order;
 
-[prog, obj, E, L_E] = define_C_3(r,rt,V,rho,dynamics.c,n_c,le_order,delta_E);
+[prog, obj, E, L_E] = define_K_2(r,rt,V,rho,dynamics.c,n_c,le_order,delta_E);
  
 %State constraints
 [prog, Lg] = prog.newSOSPoly(monomials(rt,0:lg_order),1);
@@ -72,7 +72,7 @@ options = spot_sdp_default_options();
 options.verbose = 0;
 
 %Solve
-fprintf('Solving Controller (3)...');
+fprintf('Solving Controller (2)...');
 try
     SOS_soln = prog.minimize(-obj, @spot_mosek, options);
 catch

@@ -1,7 +1,7 @@
 clear all; close all; clc;
 
 %% Load SOS solution
-load 'PVTOL_soln.mat'; %V_sol, u_sol, rho_sol, E_sol
+load '../PVTOL_soln.mat'; %V_sol, u_sol, rho_sol, E_sol
 
 %% Inertial prop
 
@@ -33,7 +33,6 @@ Xp = interp1(t_traj_0,Xp,t_traj);
 
 %% Simulate
 
-% x_0 = [Xp(1,1:2)+0.1*randn(1,2),Xp(1,3:4),0,0]';
 N = 20;
 start_rand_p = [-0.05;-0.005] + 2*[0.1;0.01].*rand(2,N);
 % start_rand_p = zeros(2,N);
