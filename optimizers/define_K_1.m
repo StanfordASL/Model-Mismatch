@@ -1,4 +1,4 @@
-function [prog,gamma,Ly,Ls,u] = define_C_12(dynamics,r,rt,up,gp,gs,V,rho,u_order,ls_order,ly_order,lp_order)
+function [prog,gamma,Ly,Ls,u] = define_K_1(dynamics,r,rt,up,gp,gs,V,rho,u_order,ls_order,ly_order,lp_order)
 
 h = dynamics.h;
 B = dynamics.B;

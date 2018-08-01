@@ -1,4 +1,4 @@
-function [prog, gamma, u_eps, E, V, rho, coeffs] = define_L(dynamics,r,rt,up,gp,gs,u,Ly,Ls,L_E,V_order,lp_order,n_r,n_c,delta_E,delta_rho)
+function [prog, gamma, u_eps, E, V, rho, coeffs] = define_V(dynamics,r,rt,up,gp,gs,u,Ly,Ls,L_E,V_order,lp_order,n_r,n_c,delta_E)
 
 h = dynamics.h;
 B = dynamics.B;

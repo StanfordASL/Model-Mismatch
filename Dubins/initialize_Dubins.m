@@ -1,7 +1,7 @@
 function [V_1,rho_1,E_1,u_sol] = initialize_Dubins(dynamics,r,rt,up,gp,gs,toler)
 
 %%
-%states: r = (rx,ry,v,th)
+%states: r = (rx,ry,v)
 
 %% Initial guess
 rho_s = 6*rand(1);

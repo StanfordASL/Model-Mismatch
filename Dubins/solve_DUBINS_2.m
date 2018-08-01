@@ -1,7 +1,6 @@
 function [solved_2,E,V_sol,rho_sol,gamma_sol,u_s] = solve_DUBINS_2(dynamics,r,rt,up,gp,gs,u,Ly,Ls,L_E,E_prev,alpha,E_w,gamma_1,toler)
 
 delta_E = toler.delta_E;
-delta_rho = toler.delta_rho;
 lambda = toler.lambda;
 alpha_l = toler.alpha_l;
 
@@ -13,7 +12,7 @@ n_c = length(dynamics.c);
 V_order = toler.all_deg.V_order; 
 lp_order = toler.all_deg.lp_order;
 
-[prog, gamma, u_eps, E, V, rho] = define_L(dynamics,r,rt,up,gp,gs,u,Ly,Ls,L_E,V_order,lp_order,n_r,n_c,delta_E,delta_rho);
+[prog, gamma, u_eps, E, V, rho] = define_V(dynamics,r,rt,up,gp,gs,u,Ly,Ls,L_E,V_order,lp_order,n_r,n_c,delta_E);
 
 %Slack improvement
 % prog = prog.withPos(gamma_1-gamma);
@@ -29,7 +28,7 @@ prog = prog.withPSD((1+alpha)*E_prev - E);
 options = spot_sdp_default_options();
 options.verbose = 0;
 
-fprintf('Solving Lyapunov...');
+fprintf('Solving V...');
 try
     SOS_soln = prog.minimize(-obj + lambda*(gamma+sum(u_eps)), @spot_mosek, options);
 catch

@@ -34,10 +34,10 @@ if nargin > 4
 else
     figure()
 end
-h_p(1) = trisurf(plane.body.hull,body_V(:,1),body_V(:,2),body_V(:,3),'FaceColor','r','EdgeColor','k','Linewidth',2); hold on
-h_p(2) = trisurf(plane.wing.hull,wing_V(:,1),wing_V(:,2),wing_V(:,3),'FaceColor','r','EdgeColor','k','Linewidth',2);
-h_p(3) = trisurf(plane.stab.hull,stab_V(:,1),stab_V(:,2),stab_V(:,3),'FaceColor','r','EdgeColor','k','Linewidth',2);
-h_p(4) = trisurf(plane.tail.hull,tail_V(:,1),tail_V(:,2),tail_V(:,3),'FaceColor','r','EdgeColor','k','Linewidth',2);
+h_p(1) = trisurf(plane.body.hull,body_V(:,1),body_V(:,2),body_V(:,3),'FaceColor','r','EdgeColor','k','Linewidth',1); hold on
+h_p(2) = trisurf(plane.wing.hull,wing_V(:,1),wing_V(:,2),wing_V(:,3),'FaceColor','r','EdgeColor','k','Linewidth',1);
+h_p(3) = trisurf(plane.stab.hull,stab_V(:,1),stab_V(:,2),stab_V(:,3),'FaceColor','r','EdgeColor','k','Linewidth',1);
+h_p(4) = trisurf(plane.tail.hull,tail_V(:,1),tail_V(:,2),tail_V(:,3),'FaceColor','r','EdgeColor','k','Linewidth',1);
 
 if (show_box)
     box_V = ( R*plane.box.V' + repmat(r,1,plane.box.nV) )';

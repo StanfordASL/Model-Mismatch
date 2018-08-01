@@ -3,7 +3,7 @@ clear all; close all; clc;
 ode_options = odeset('RelTol', 1e-6, 'AbsTol', 1e-9);
 
 %% Load SOS solution
-load 'DUBINS_soln.mat';
+load '../DUBINS_soln.mat';
 
 %% Generate single-integrator trajectory
 

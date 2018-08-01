@@ -145,7 +145,7 @@ X_ref(:,4) = wrapToPi(X_ref(:,4));
 %% Plot path
 fig_FMT = figure();
 title(sprintf('time: %.4f',FMT_time));
-plot3(X_ref(:,1),X_ref(:,2),X_ref(:,3),'b-','linewidth',2); hold on
+plot3(X_ref(:,1),X_ref(:,2),X_ref(:,3),'r-','linewidth',2); hold on
 goal.plot('color','blue','alpha',0.3); 
 plot_all_obstacles();
 xlabel('X'); ylabel('Y'); zlabel('Z');

@@ -1,4 +1,4 @@
-function [prog, obj, E, L_E] =  define_C_3(r,rt,V,rho,c,n_c,le_order,delta_E)
+function [prog, obj, E, L_E] =  define_K_2(r,rt,V,rho,c,n_c,le_order,delta_E)
 
 %% Initialize problem
 prog = spotsosprog;

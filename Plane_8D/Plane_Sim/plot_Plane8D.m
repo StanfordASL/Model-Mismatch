@@ -26,7 +26,7 @@ grid on
 hold on
 plot3(X(:,1),X(:,2),X(:,3),'k-','linewidth',2.0);
 set(findall(gcf,'type','text'),'FontSize',32);set(gca,'FontSize',32)
-for i = 1:(1/dT):length(t_ref)
+for i = 1:(0.5/dT):length(t_ref)
     proj_Ellipse([1:3],E_sol,1,X_ref(i,1:3)',30,'b',X_ref(i,4));
 end
 
