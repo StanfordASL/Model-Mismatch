@@ -1,7 +1,6 @@
 function [solved_2,V_sol,rho,E,gamma_sol,u_s] = solve_car5D_start_2(dynamics,r,rt,up,gp,gs,g,u,Ly,Lg,Ls,L_E,gamma_1,toler)
 
 delta_E = toler.delta_E;
-delta_rho = toler.delta_rho;
  
 n_r = 5;
 n_c = length(dynamics.c);
@@ -11,7 +10,7 @@ n_c = length(dynamics.c);
 V_order = toler.all_deg.V_order; 
 lp_order = toler.all_deg.lp_order;
 
-[prog, gamma, u_eps, E, V, rho] = define_L(dynamics,r,rt,up,gp,gs,u,Ly,Ls,L_E,V_order,lp_order,n_r,n_c,delta_E,delta_rho);
+[prog, gamma, u_eps, E, V, rho] = define_V(dynamics,r,rt,up,gp,gs,u,Ly,Ls,L_E,V_order,lp_order,n_r,n_c,delta_E);
 
 %slack improvement
 prog = prog.withPos(gamma_1-gamma);
@@ -23,7 +22,7 @@ prog = prog.withSOS(-g + Lg*(V-rho));
 options = spot_sdp_default_options();
 options.verbose = 0;
 
-fprintf('Solving Lyapunov...');
+fprintf('Solving V...');
 try
     SOS_soln = prog.minimize(gamma+sum(u_eps), @spot_mosek, options);
 catch

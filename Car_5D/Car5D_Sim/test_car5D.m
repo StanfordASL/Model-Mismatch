@@ -1,7 +1,7 @@
 clear all; close all; clc;
 
 %% Load SOS solution
-load 'car5D_soln_2.mat'; %V_sol, u_sol, rho_sol, E_sol, c_sol
+load '../car5D_soln_2.mat'; %V_sol, u_sol, rho_sol, E_sol, c_sol
 
 %% Load 3D Dubins trajectory
 
@@ -22,7 +22,7 @@ t_traj = 0:dt:T;
 %% Simulate
 
 % (x,y,th,v,om)
-N = 10;
+N = 10; %number of sims
 start_rand_p = [-0.02;-0.1] + [0.04;0.2].*rand(2,N);
 start_rand_th = zeros(1,N);
 start_rand_om = zeros(1,N);

@@ -105,7 +105,7 @@ end
 le_order = 2; 
 lg_order = 2;
 
-[prog, obj, E, ~] = define_C_3(r,rt,V,rho,dynamics.c,n_c,le_order,delta_E);
+[prog, obj, E, ~] = define_K_2(r,rt,V,rho,dynamics.c,n_c,le_order,delta_E);
  
 %State constraints
 [prog, Lg] = prog.newSOSPoly(monomials(rt,0:lg_order),1);

@@ -103,7 +103,7 @@ E_sol = zeros(n_c);
 
 le_order = toler.all_deg.le_order; 
 
-[prog, obj, E, ~] = define_C_3(r,rt,V,rho,dynamics.c,n_c,le_order,delta_E);
+[prog, obj, E, ~] = define_K_2(r,rt,V,rho,dynamics.c,n_c,le_order,delta_E);
  
 %Solver options
 options = spot_sdp_default_options();
