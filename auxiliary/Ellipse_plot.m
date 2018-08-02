@@ -122,7 +122,7 @@ else
     ZZ = ZZ_temp + C(3);
     
     h = surfl(XX,YY,ZZ); colormap('winter');
-    set(h,'FaceAlpha',0.3,'EdgeColor','b','linewidth',0.5); %shading interp
+    set(h,'FaceAlpha',0.3,'EdgeColor','none'); %shading interp
     axis equal
     hidden off
 end

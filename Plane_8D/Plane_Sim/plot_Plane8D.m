@@ -78,5 +78,6 @@ set(gcf,'Color','w');
 
 %% Create video
 
+disp('Only proceed with generating the video if you have time and patience...');
 keyboard;
 create_Plane_vid();
